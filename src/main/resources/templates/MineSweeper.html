@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Welcome Page</title>
+    <script src="/webjars/jquery/3.6.0/jquery.min.js" defer></script>
+    <script src="/webjars/sockjs-client/sockjs.min.js" defer></script>
+    <script src="/webjars/stomp-websocket/stomp.min.js" defer></script>
+    <script src="/webjars/js-cookie/js.cookie.js" defer></script>
+    <script src="js/MineSweeper.js" defer></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+<div id="stage1">
+    <form id="usernameForm" name="usernameForm">
+        <div class="form-group my-2">
+            <input type="text" id="name"  class="form-control"  th:value="${userLogin}" required disabled readonly/>
+        </div>
+        <div class="form-group my-2">
+            <input type="text" id="room-id" class="form-control" placeholder="Room ID" required />
+        </div>
+        <div class="form-group text-center">
+            <button type="submit" id="join" class="accent username-submit btn btn-light btn-rounded">JOIN</button>
+        </div>
+    </form>
+</div>
+<div id="stage2" class="hidden">
+    <div class="board md-col-2" style="width: 500px"></div>
+    <div class="endscreen md-col-2"></div>
+    <ul id="messageArea" class="chat flex" style="height: 250px; overflow: auto"></ul>
+    <form id="messageForm" name="messageForm" nameForm="messageForm">
+        <div class="form-group">
+            <div class="input-group clearfix my-bottom-2">
+                <input type="text" id="message" placeholder="Type a message... or /join [room-id] to join another room." autocomplete="off" class="form-control chat flex" style=" overflow: auto"/><br>
+                <button type="submit" id="send" class="primary inline chat" style="width: 50px;">Send</button>
+            </div>
+        </div>
+    </form>
+    <div class="settings">
+
+        <label for="timer">Timer:</label>
+        <div id="timer"></div>
+
+        <label for="tileSize">Tile Size:</label>
+        <input id="tileSize" type="range" min="10" max="100" step="10">
+
+        <label for="difficulty">Difficulty:</label>
+        <input id="difficulty" type="range" name="difficulty" class="difficulty" min="10" max="40" value="20" required>
+
+        <label for="boardSize">Board Size:</label>
+        <input id="boardSize" type="range" value="10" min="3" max="25" required>
+
+        <button type="submit" id="setSettings" class="accent username-submit btn btn-light btn-rounded">New Game</button>
+    </div>
+</div>
+
+</body>
+</html>
