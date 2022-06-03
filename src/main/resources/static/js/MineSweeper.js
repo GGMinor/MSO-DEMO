@@ -134,10 +134,6 @@ function setup(){
 	$("#timer").html(0);
 
 
-	console.log("BOMBS:"); //Remove
-		console.log(bombs);
-		console.log("NUMBERS:"); //Remove
-		console.log(numbers);  //Remove
 	numbers.forEach(num => {
 		let coords = num.split(',');
 		let tile = document.querySelectorAll(`[data-tile="${parseInt(coords[0])},${parseInt(coords[1])}"]`)[0];
@@ -189,7 +185,6 @@ const clickTile = (tile) => {
 /* clicked the right one */
 const checkTile = (tile, coordinate) => {
 
-	console.log('✔');
 	let coords = coordinate.split(',');
 	let x = parseInt(coords[0]);
 	let y = parseInt(coords[1]);
@@ -296,7 +291,6 @@ const checkVictory = () => {
 }
 
 function connect() {
-	console.log("connect...connect")
 	 if( $('#room-id').val() == "" ||  $('#name').val() == "" )
      {
          preventDefault();
@@ -314,7 +308,6 @@ function connect() {
 }
 
 function onConnected () {
-	console.log("Conencted...onConnected") //Remove
     enterRoom($("#room-id").val());
     $(".connecting").hide();
 }
@@ -380,14 +373,10 @@ function onMessageReceived(payload) {
 function onGameMessageReceived (payload){
 	var gameMessage = JSON.parse(payload.body);
 	if (gameMessage.type == 'JOIN'){
-	    console.log("ON GAME MESSAGE RECEIVED: ")//Remove
-        console.log(gameMessage) //Remove
         getSettings.style.display = 'block';
         clearInterval(timer);
 
 	} else if (gameMessage.type == 'WIN'){
-        console.log("ON WIN MESSAGE RECEIVED: ")//Remove
-        console.log(gameMessage) //Remove
         getSettings.style.display = 'block';
         clearInterval(timer);
 
@@ -402,8 +391,6 @@ function onGameMessageReceived (payload){
         }
 
     }else if (gameMessage.type == 'LOSE'){
-         console.log("ON LOSE MESSAGE RECEIVED: ")//Remove
-         console.log(gameMessage) //Remove
          getSettings.style.display = 'block';
          clearInterval(timer);
 
@@ -417,8 +404,6 @@ function onGameMessageReceived (payload){
         }
 
     }else if(gameMessage.type == 'GAME') {
-             console.log("ON GAME MESSAGE RECEIVED: ")//Remove
-             console.log(gameMessage) //Remove
              setBoard(gameMessage);
              getSettings.style.display = 'none';}
 }
@@ -438,9 +423,6 @@ function setBoard(bombsMap){
 	let coordsBombs = bombsMap.bombs.bombs;
 	let coordsNumbers = bombsMap.numbers.numbers;
 	let sentSize = bombsMap.size.size;
-	console.log("BOMBS" + coordsBombs);
-	console.log("NUMBERS" + coordsNumbers);
-	console.log("SET BOARD:" + bombsMap);
 
 
 	for (let i = 0; i < Math.pow(sentSize, 2); i++) {
@@ -518,45 +500,36 @@ function setBoard(bombsMap){
 
 //Send Board to Server
 function sendBoard() {
-	console.log("SEND BOARD GAME TOPIC" + gameTopic)  //Remove
-	console.log("Send board:") //Remove
 
     var BombMessage = {};
     BombMessage.bombs = bombs;
     BombMessage.numbers = numbers;
     BombMessage.size=size;
 
-    console.log("SEND BOARD MESSAGE: " + JSON.stringify(BombMessage));
     stompClient.send(`${gameTopic}/sendBoard`, {}, JSON.stringify(BombMessage));
 }
 
 function sendWin() {
-	console.log("SEND WIN GAME TOPIC" + gameTopic)  //Remove
 
     var UserWinMessage = {};
     UserWinMessage.username = username;
     UserWinMessage.time = seconds;
 
-    console.log("SEND WIN MESSAGE: " + JSON.stringify(UserWinMessage));
     stompClient.send(`${gameTopic}/sendWin`, {}, JSON.stringify(UserWinMessage));
 }
 
 function sendLose() {
-	console.log("SEND LOSE GAME TOPIC" + gameTopic)  //Remove
 
     var UserLoseMessage = {};
     UserLoseMessage.username = username;
 
-    console.log("SEND WIN MESSAGE: " + JSON.stringify(UserLoseMessage));
     stompClient.send(`${gameTopic}/sendLose`, {}, JSON.stringify(UserLoseMessage));
 }
 
 function sendBackToGame() {
-	console.log("SEND BACK TO GAME TOPIC" + gameTopic)  //Remove
 
     var BackToGameMessage = {};
 
-    console.log("SEND BACK TO GAME: " + JSON.stringify(BackToGameMessage));
     stompClient.send(`${gameTopic}/BackToGame`, {}, JSON.stringify(BackToGameMessage));
 }
 
@@ -594,7 +567,6 @@ restartBtn.addEventListener('click', function(e) {
 
 //Changes tile size locally
 tileSizeBtn.addEventListener('change', function(e) {
-	console.log(this.value);
 	tileSize = this.value;
 });
 
@@ -624,10 +596,6 @@ function setSettings(){
             bombFrequency = ($("#difficulty").val())/100;
         }
 
-    console.log('BombPercentage')
-    console.log(bombFrequency)
-    console.log('BoardSize')
-    console.log(size)
 
     try {
         clear();

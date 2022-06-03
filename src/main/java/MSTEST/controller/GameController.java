@@ -44,6 +44,7 @@ public class GameController {
         messagingTemplate.convertAndSend(format("/game/%s", roomId), ongoingGame);
 
     }
+
     @MessageMapping("/game/{roomId}/sendWin")
     public void sendWin(@DestinationVariable String roomId, @Payload User username, @Payload User time){
         Game ongoingGame = game.get(roomId);
@@ -51,7 +52,6 @@ public class GameController {
         ongoingGame.setTime(time);
         ongoingGame.setType(Game.MessageType.WIN);
         messagingTemplate.convertAndSend(format("/game/%s", roomId), ongoingGame);
-
     }
 
     @MessageMapping("/game/{roomId}/sendLose")
