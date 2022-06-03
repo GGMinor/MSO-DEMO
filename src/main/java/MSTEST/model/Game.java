@@ -32,5 +32,4 @@ public class Game {
     User username;
 
     User time;
-
 }

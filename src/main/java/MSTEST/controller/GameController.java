@@ -62,32 +62,4 @@ public class GameController {
         ongoingGame.setType(Game.MessageType.LOSE);
         messagingTemplate.convertAndSend(format("/game/%s", roomId), ongoingGame);
     }
-
-//
-//    @MessageMapping("/game/{roomId}/sendMove")
-//    public void sendMove(@DestinationVariable String roomId, @Payload Board board) {
-//        Game gameState = game.get(roomId);
-//        gameState.setVisibleBoard(board);
-//        messagingTemplate.convertAndSend(format("/game/%s", roomId), gameState);
-//    }
-//
-//
-//    @MessageMapping("/game/{roomId}/sendState")
-//    public void sendState(@DestinationVariable String roomId) {
-//        Game gameState = game.get(roomId);
-//
-//        if (gameState.getIsWon())
-//            gameState.setState(Game.State.WIN);// sets what he sees here
-//        else gameState.setState(Game.State.LOST);// sets what he sees here
-//        messagingTemplate.convertAndSend(format("/game/%s", roomId), gameState);
-//    }
-//
-//    @MessageMapping("/game/{roomId}/restart")
-//    public void restart(@DestinationVariable String roomId) {
-//        Game gameState = game.get(roomId);
-//
-//        if (game.containsKey(roomId)) ;
-//        game.remove(roomId);
-//        messagingTemplate.convertAndSend(format("/game/%s", roomId), gameState.getIsRestarted());
-//    }
 }
